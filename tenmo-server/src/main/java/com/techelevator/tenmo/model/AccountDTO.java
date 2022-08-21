@@ -23,6 +23,8 @@ public class AccountDTO {
         this.balance = balance;
     }
 
+    public AccountDTO() {};
+
     public long getUserId() {
         return userId;
     }
