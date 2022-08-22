@@ -13,8 +13,6 @@ public class Transfer {
     private Long accountTo;
     private BigDecimal amount;
 
-
-
     public Transfer(
             Long transferId,
             Long transferTypeId,
