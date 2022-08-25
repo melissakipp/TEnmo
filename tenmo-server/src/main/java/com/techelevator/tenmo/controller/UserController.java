@@ -19,7 +19,7 @@ public class UserController {
         this.userDao = userDao;
     }
 
-    @GetMapping("account/users")
+    @GetMapping("users")
     public List<User> getUsers(Principal principal) {
         return userDao.findAll();
     }
