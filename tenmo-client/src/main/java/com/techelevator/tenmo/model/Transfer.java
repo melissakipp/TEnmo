@@ -33,6 +33,12 @@ public class Transfer {
         this.accountTo = accountTo;
         this.amount = amount;
     }
+    // TODO: Do we need default values for the rest of the fields?
+    public Transfer(Long accountFrom, Long accountTo, BigDecimal amount) {
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.amount = amount;
+    }
 
     public Transfer(){}
 
