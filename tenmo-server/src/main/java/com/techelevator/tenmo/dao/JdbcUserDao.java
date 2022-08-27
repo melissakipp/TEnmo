@@ -34,11 +34,12 @@ public class JdbcUserDao implements UserDao {
     }
 
     // TODO: Updated return object type from List<User> -> User[]
+    // TODO: Updated findAll() to filter out for current user
     @Override
-    public User[] findAll() {
+    public User[] findAll(int idToFilterOut) {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT user_id, username, password_hash FROM tenmo_user;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE user_id != ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, idToFilterOut);
         while(results.next()) {
             User user = mapRowToUser(results);
             users.add(user);

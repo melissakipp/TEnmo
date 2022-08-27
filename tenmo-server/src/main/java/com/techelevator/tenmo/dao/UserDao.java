@@ -4,7 +4,7 @@ import com.techelevator.tenmo.model.User;
 
 public interface UserDao {
 
-    User[] findAll();
+    User[] findAll(int idToFilterOut);
 
     User findByUsername(String username);
 
