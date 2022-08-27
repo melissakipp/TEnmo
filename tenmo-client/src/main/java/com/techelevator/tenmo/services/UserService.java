@@ -11,6 +11,9 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +31,11 @@ public class UserService {
         List<User> users = new ArrayList<>();
 
         try {
-            ResponseEntity<List> response =
+            // TODO: Should we filter this out with SQL? (YEP......)
+            ResponseEntity<User[]> response =
                     restTemplate.exchange(apiUrl, HttpMethod.GET,
-                            makeAuthEntity(token), List.class);
-            users = response.getBody();
-            // TODO: Should we filter this out with SQL?
-            users.remove(currentUser.getUser());
+                            makeAuthEntity(token), User[].class);
+            users = Arrays.asList(response.getBody());
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
             System.out.println("There was an error. Please refer to the log files.");

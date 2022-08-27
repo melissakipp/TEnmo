@@ -108,9 +108,6 @@ public class App {
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-        System.out.println("-------------------------------------------");
-        System.out.println("Users ID          Name");
-        System.out.println("-------------------------------------------");
         List<User> users = userService.getAllUsersExceptCurrent(currentUser);
         System.out.println(consoleService.printUserList(users));
         Long recipientId =(long) consoleService.promptForInt("Enter ID of user you are sending to (0 to cancel): ");

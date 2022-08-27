@@ -5,6 +5,7 @@ import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
+import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -91,10 +92,19 @@ public class ConsoleService {
     }
 
     public StringBuilder printUserList(List<User> users) {
-        StringBuilder stringBuilder = new StringBuilder();
+        // TODO show StringBuilder + Formatter for printUserList
+        StringBuilder userList = new StringBuilder();
+        Formatter userListFormatter = new Formatter(userList);
+
+        System.out.println("\n-------------------------------------------");
+        System.out.println("Users");
+        System.out.println("ID                Name");
+        System.out.println("-------------------------------------------");
+
         for (User user : users) {
-            System.out.println(user.getId() + user.getUsername());
+            userListFormatter.format("%-15d %7s %n", user.getId(), user.getUsername());
         }
+        return userList;
     }
 
 }
