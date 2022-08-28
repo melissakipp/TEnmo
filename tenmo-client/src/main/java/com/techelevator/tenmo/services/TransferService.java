@@ -23,13 +23,14 @@ public class TransferService  {
         String token = currentUser.getToken();
         Long accountFrom = currentUser.getUser().getId();
         Transfer transfer = new Transfer(accountFrom, accountTo, amount);
-        transfer.setTransferId(2L);
+        transfer.setTransferTypeId(2L);
         transfer.setTransferStatusId(2L);
 
         boolean isSuccessful = true;
         try {
             ResponseEntity<Transfer> response =
                     restTemplate.exchange(apiUrl, HttpMethod.POST, makeAuthEntity(token, transfer), Transfer.class);
+            transfer = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             isSuccessful = false;
             BasicLogger.log(e.getMessage());
