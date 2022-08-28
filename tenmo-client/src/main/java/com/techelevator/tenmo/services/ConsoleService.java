@@ -92,7 +92,6 @@ public class ConsoleService {
     }
 
     public StringBuilder printUserList(List<User> users) {
-        // TODO show StringBuilder + Formatter for printUserList
         StringBuilder userList = new StringBuilder();
         Formatter userListFormatter = new Formatter(userList);
 

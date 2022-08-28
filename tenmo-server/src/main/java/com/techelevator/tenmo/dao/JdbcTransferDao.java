@@ -75,22 +75,26 @@ public class JdbcTransferDao implements TransferDao {
     }
 
     @Override
-    public Transfer processTransfer(Transfer transfer) {
-        String sql = "BEGIN TRANSACTION;\n" +
+    public String processTransfer(Transfer transfer) {
+        String sqlSuccess = "BEGIN TRANSACTION;\n" +
                 "\n" +
-                "UPDATE account SET balance = balance - 100 WHERE user_id = 1002;\n" +
+                "UPDATE account SET balance = balance - ? WHERE account_id = ?;\n" +
                 "\n" +
-                "UPDATE account SET balance = balance + 100 WHERE user_id = 1001;\n" +
+                "UPDATE account SET balance = balance + ? WHERE account_id = ?;\n" +
                 "\n" +
-                "ROLLBACK;";
+                "COMMIT;";
+        String sqlRejected = "UPDATE transfer SET transfer_status_id = 3 WHERE transfer_id = ?;";
         BigDecimal accountToBalance = accountDao.getAccountBalanceByAccountId(transfer.getAccountTo());
         BigDecimal accountFromBalance = accountDao.getAccountBalanceByAccountId(transfer.getAccountFrom());
         BigDecimal amountToTransfer = transfer.getAmount();
         // TODO: Find out to compare two BigDecimals
-//        if (accountToBalance.compareTo(amountToTransfer) == 1 && accountFromBalance.compareTo(amountToTransfer) == 1 && amountToTransfer.compareTo(BigDecimal(0)) == 1) {
-//            jdbcTemplate.update(sql);
-//        }
-        return null;
+        if (accountFromBalance.compareTo(amountToTransfer) == 1 && amountToTransfer.compareTo(new BigDecimal(0)) == 1) {
+            jdbcTemplate.update(sqlSuccess, transfer.getAmount(), transfer.getAccountFrom(), transfer.getAmount(), transfer.getAccountTo());
+            return "Your transfer #" + transfer.getTransferId() + " was successful!";
+        }
+            jdbcTemplate.update(sqlRejected, transfer.getTransferId());
+            transfer.setTransferStatusId(3L);
+            return "Your transfer #" + transfer.getTransferId() + " was rejected!";
     }
 
     private Transfer mapRowToTransfer(SqlRowSet rs) {

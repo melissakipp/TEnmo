@@ -18,7 +18,6 @@ public class JdbcAccountDao implements AccountDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // TODO: Check return
     @Override
     public AccountDTO getAccount(String accountName) {
         AccountDTO account = null;

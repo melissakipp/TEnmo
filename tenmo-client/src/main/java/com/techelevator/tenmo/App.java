@@ -1,5 +1,6 @@
 package com.techelevator.tenmo;
 
+import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
@@ -21,12 +22,12 @@ public class App {
 
     private AuthenticatedUser currentUser;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UserNotFoundException {
         App app = new App();
         app.run();
     }
 
-    private void run() {
+    private void run() throws UserNotFoundException {
         consoleService.printGreeting();
         loginMenu();
         if (currentUser != null) {
@@ -67,7 +68,7 @@ public class App {
         }
     }
 
-    private void mainMenu() {
+    private void mainMenu() throws UserNotFoundException {
         int menuSelection = -1;
         while (menuSelection != 0) {
             consoleService.printMainMenu();
@@ -106,7 +107,7 @@ public class App {
 		
 	}
 
-	private void sendBucks() {
+	private void sendBucks() throws UserNotFoundException {
 		// TODO Auto-generated method stub
         List<User> users = userService.getAllUsersExceptCurrent(currentUser);
         System.out.println(consoleService.printUserList(users));

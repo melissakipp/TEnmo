@@ -24,9 +24,10 @@ public class TransferController {
     }
 
     @PostMapping("/transfer")
-    public Transfer createTransfer(@RequestBody Transfer transfer) {
+    public String createTransfer(@RequestBody Transfer transfer) {
         transfer.setAccountTo(accountDao.getAccountIdByUserId(transfer.getAccountTo()));
         transfer.setAccountFrom(accountDao.getAccountIdByUserId(transfer.getAccountFrom()));
-        return transferDao.createTransfer(transfer);
+        transfer = transferDao.createTransfer(transfer);
+        return transferDao.processTransfer(transfer);
     }
 }

@@ -31,7 +31,6 @@ public class UserService {
         List<User> users = new ArrayList<>();
 
         try {
-            // TODO: Should we filter this out with SQL? (YEP......)
             ResponseEntity<User[]> response =
                     restTemplate.exchange(apiUrl, HttpMethod.GET,
                             makeAuthEntity(token), User[].class);
