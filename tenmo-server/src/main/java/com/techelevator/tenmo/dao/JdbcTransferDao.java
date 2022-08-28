@@ -12,6 +12,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -29,7 +30,6 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public Transfer createTransfer(Transfer transfer) {
-
         String sqlCreateTransfer = "INSERT INTO transfer(transfer_type_id, " +
                 "transfer_status_id, " +
                 "account_from," +
@@ -55,8 +55,22 @@ public class JdbcTransferDao implements TransferDao {
     }
 
     @Override
-    public List<Transfer> getAllTransfers(String username) {
-        return null;
+    public Transfer[] getAllTransfers(String username) {
+        User currentUser = userDao.findUserByUsername(username);
+        Long accountId = accountDao.getAccountIdByUserId(currentUser.getId());
+        List<Transfer> transfersList = new ArrayList<>();
+        String sql = "SELECT transfer_id, transfer.transfer_type_id, transfer_type_desc, transfer.transfer_status_id, transfer_status_desc, account_from, account_to, amount " +
+                "FROM transfer " +
+                "JOIN transfer_status ON transfer_status.transfer_status_id = transfer.transfer_status_id " +
+                "JOIN transfer_type ON transfer_type.transfer_type_id = transfer.transfer_type_id " +
+                "WHERE account_to = ? OR account_from = ? " +
+                "ORDER BY transfer_id DESC;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId, accountId);
+        if (results.next()) {
+            Transfer newTransfer = mapRowToTransfer(results);
+            transfersList.add(newTransfer);
+        }
+        return transfersList.toArray(new Transfer[0]);
     }
 
     @Override

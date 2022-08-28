@@ -8,7 +8,7 @@ public interface UserDao {
 
     User[] findAllButCurrentUser(int idToFilterOut);
 
-    User findByUsername(String username);
+    User findUserByUsername(String username);
 
     int findIdByUsername(String username);
 

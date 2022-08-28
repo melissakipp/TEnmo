@@ -9,7 +9,7 @@ public interface TransferDao {
     Transfer createTransfer(Transfer transfer);
     Transfer getTransfer(Long transferId);
     String processTransfer(Transfer transfer);
-    List<Transfer> getAllTransfers(String username);
+    Transfer[] getAllTransfers(String username);
 
 
 }

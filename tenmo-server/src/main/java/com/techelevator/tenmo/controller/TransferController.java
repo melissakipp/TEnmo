@@ -7,6 +7,8 @@ import com.techelevator.tenmo.model.Transfer;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 /**
  * Controller for transfer functionality.
  */
@@ -17,10 +19,12 @@ public class TransferController {
 
     private TransferDao transferDao;
     private AccountDao accountDao;
+    private UserDao userDao;
 
-    public TransferController(TransferDao transferDao, AccountDao accountDao) {
+    public TransferController(TransferDao transferDao, AccountDao accountDao, UserDao userDao) {
         this.transferDao = transferDao;
         this.accountDao = accountDao;
+        this.userDao = userDao;
     }
 
     @PostMapping("/transfer")
@@ -29,5 +33,10 @@ public class TransferController {
         transfer.setAccountFrom(accountDao.getAccountIdByUserId(transfer.getAccountFrom()));
         transfer = transferDao.createTransfer(transfer);
         return transferDao.processTransfer(transfer);
+    }
+
+    @GetMapping("/alltransfers")
+    public Transfer[] getAllTransfers(Principal principal) {
+        return transferDao.getAllTransfers(principal.getName());
     }
 }
