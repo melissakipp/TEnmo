@@ -17,7 +17,7 @@ public class TransferService  {
     private final String apiUrl;
 
     public TransferService(String apiUrl) {
-        this.apiUrl = apiUrl + "account/transfer";
+        this.apiUrl = apiUrl + "account/";
     }
 
     public String transfer(AuthenticatedUser currentUser, Long accountTo, BigDecimal amount) throws UserNotFoundException {
@@ -30,7 +30,7 @@ public class TransferService  {
 
         try {
             ResponseEntity<String> response =
-                    restTemplate.exchange(apiUrl, HttpMethod.POST, makeAuthEntity(token, transfer), String.class);
+                    restTemplate.exchange(apiUrl + "transfer", HttpMethod.POST, makeAuthEntity(token, transfer), String.class);
             returnMessage = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -38,6 +38,26 @@ public class TransferService  {
             //throw new UserNotFoundException();
         }
         return returnMessage;
+    }
+
+    public Transfer[] getAllTransfers(AuthenticatedUser currentUser) {
+        String token = currentUser.getToken();
+        Transfer[] transfers = null;
+        try {
+            ResponseEntity<Transfer[]> response =
+                    restTemplate.exchange(apiUrl + "transfer/alltransfers", HttpMethod.GET, makeAuthEntity(token), Transfer[].class);
+            transfers = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+            System.out.println("There was an error. Please refer to the log files.");
+        }
+        if (transfers == null) {
+            System.out.println("There are no transfers for this customer.");
+        }
+        for(int i = 0; i < transfers.length; i++) {
+
+        }
+        return transfers;
     }
 
     private HttpEntity<Void> makeAuthEntity(String token) {

@@ -12,6 +12,8 @@ public class Transfer {
     private Long accountFrom;
     private Long accountTo;
     private BigDecimal amount;
+    private String sender;
+    private String recipient;
 
     public Transfer(
             Long transferId,
@@ -21,7 +23,9 @@ public class Transfer {
             String transferStatusDescription,
             Long accountFrom,
             Long accountTo,
-            BigDecimal amount ) {
+            BigDecimal amount,
+            String sender,
+            String recipient) {
         this.transferId = transferId;
         this.transferTypeId = transferTypeId;
         this.transferTypeDescription = transferTypeDescription;
@@ -30,6 +34,8 @@ public class Transfer {
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;
         this.amount = amount;
+        this.sender = sender;
+        this.recipient = recipient;
     }
 
     public Transfer(){}
@@ -97,4 +103,19 @@ public class Transfer {
         this.amount = amount;
     }
 
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
 }

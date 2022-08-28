@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
@@ -102,6 +103,21 @@ public class ConsoleService {
 
         for (User user : users) {
             userListFormatter.format("%-15d %7s %n", user.getId(), user.getUsername());
+        }
+        return userList;
+    }
+
+    public StringBuilder printTransferList(Transfer[] transfers) {
+        StringBuilder transferList = new StringBuilder();
+        Formatter transferListFormatter = new Formatter(transferList);
+
+        System.out.println("\n-------------------------------------------");
+        System.out.println("Transfers");
+        System.out.println("ID          From/To                 Amount");
+        System.out.println("-------------------------------------------");
+
+        for (Transfer transfer : transfers) {
+            transferListFormatter.format("%-12d %-24s %7d %n", user.getId(), user.getUsername());
         }
         return userList;
     }

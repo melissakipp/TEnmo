@@ -59,17 +59,23 @@ public class JdbcTransferDao implements TransferDao {
         User currentUser = userDao.findUserByUsername(username);
         Long accountId = accountDao.getAccountIdByUserId(currentUser.getId());
         List<Transfer> transfersList = new ArrayList<>();
-        String sql = "SELECT transfer_id, transfer.transfer_type_id, transfer_type_desc, transfer.transfer_status_id, transfer_status_desc, account_from, account_to, amount " +
+        String sql =
+                "SELECT transfer_id, transfer.transfer_type_id, transfer_type_desc, transfer.transfer_status_id, " +
+                "transfer_status_desc, account_from, account_to, amount " +
                 "FROM transfer " +
                 "JOIN transfer_status ON transfer_status.transfer_status_id = transfer.transfer_status_id " +
                 "JOIN transfer_type ON transfer_type.transfer_type_id = transfer.transfer_type_id " +
                 "WHERE account_to = ? OR account_from = ? " +
                 "ORDER BY transfer_id DESC;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId, accountId);
-        if (results.next()) {
-            Transfer newTransfer = mapRowToTransfer(results);
-            transfersList.add(newTransfer);
+        while (results.next()) {
+                Transfer newTransfer = mapRowToTransfer(results);
+                newTransfer.setRecipient(userDao.findNameByAccountId(newTransfer.getAccountTo()));
+                newTransfer.setSender(userDao.findNameByAccountId(newTransfer.getAccountFrom()));
+                transfersList.add(newTransfer);
         }
+        List<Transfer> testList = transfersList;
+        Transfer[] testArray = transfersList.toArray(new Transfer[0]);
         return transfersList.toArray(new Transfer[0]);
     }
 
@@ -84,6 +90,8 @@ public class JdbcTransferDao implements TransferDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
         if (results.next()) {
             newTransfer = mapRowToTransfer(results);
+            newTransfer.setRecipient(userDao.findNameByAccountId(newTransfer.getAccountTo()));
+            newTransfer.setSender(userDao.findNameByAccountId(newTransfer.getAccountFrom()));
         }
         return newTransfer;
     }

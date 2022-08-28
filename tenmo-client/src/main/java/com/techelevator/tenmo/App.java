@@ -99,8 +99,8 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-        System.out.println("1: View a transfer");
-        System.out.println("2: View all past transfers");
+
+        int userInput = consoleService.promptForInt("Enter ");
 
 	}
 

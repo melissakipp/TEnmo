@@ -39,4 +39,9 @@ public class TransferController {
     public Transfer[] getAllTransfers(Principal principal) {
         return transferDao.getAllTransfers(principal.getName());
     }
+
+    @GetMapping("/transfer/{id}")
+    public Transfer getTransfer(@PathVariable Long id) {
+        return transferDao.getTransfer(id);
+    }
 }
