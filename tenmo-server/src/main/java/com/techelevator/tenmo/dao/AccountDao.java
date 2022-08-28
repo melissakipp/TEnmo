@@ -9,5 +9,9 @@ public interface AccountDao {
 
     BigDecimal getAccountBalance(String username);
 
+    BigDecimal getAccountBalanceByAccountId(Long accountId);
+
     AccountDTO getAccount(String username);
+
+    Long getAccountIdByUserId(Long userId);
 }

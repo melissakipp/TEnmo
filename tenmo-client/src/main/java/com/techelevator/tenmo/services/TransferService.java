@@ -16,17 +16,20 @@ public class TransferService  {
     private final String apiUrl;
 
     public TransferService(String apiUrl) {
-        this.apiUrl = apiUrl + "/account/transfer";
+        this.apiUrl = apiUrl + "account/transfer";
     }
 
     public boolean transfer(AuthenticatedUser currentUser, Long accountTo, BigDecimal amount) {
         String token = currentUser.getToken();
         Long accountFrom = currentUser.getUser().getId();
         Transfer transfer = new Transfer(accountFrom, accountTo, amount);
+        transfer.setTransferId(2L);
+        transfer.setTransferStatusId(2L);
+
         boolean isSuccessful = true;
         try {
             ResponseEntity<Transfer> response =
-                    restTemplate.exchange(apiUrl, HttpMethod.POST, makeAuthEntity(token), Transfer.class);
+                    restTemplate.exchange(apiUrl, HttpMethod.POST, makeAuthEntity(token, transfer), Transfer.class);
         } catch (RestClientResponseException | ResourceAccessException e) {
             isSuccessful = false;
             BasicLogger.log(e.getMessage());
