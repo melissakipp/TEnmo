@@ -2,6 +2,7 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.exceptions.UserNotFoundException;
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.*;
@@ -99,9 +100,8 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-
-        int userInput = consoleService.promptForInt("Enter ");
-
+        System.out.println(consoleService.printTransferList(transferService.getAllTransfers(currentUser)));
+        int transferIdInput = consoleService.promptForInt("Please enter transfer ID to view details (0 to cancel)");
 	}
 
 	private void viewPendingRequests() {

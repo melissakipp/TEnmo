@@ -102,7 +102,7 @@ public class ConsoleService {
         System.out.println("-------------------------------------------");
 
         for (User user : users) {
-            userListFormatter.format("%-15d %7s %n", user.getId(), user.getUsername());
+            userListFormatter.format("%-14d %7s %n", user.getId(), user.getUsername());
         }
         return userList;
     }
@@ -117,9 +117,14 @@ public class ConsoleService {
         System.out.println("-------------------------------------------");
 
         for (Transfer transfer : transfers) {
-            transferListFormatter.format("%-12d %-24s %7d %n", user.getId(), user.getUsername());
+            String toOrFrom = "To:";
+            transferListFormatter.format("%-11d %-3s %-19s %2.2f %n",
+                    transfer.getTransferId(),
+                    toOrFrom,
+                    transfer.getRecipient(),
+                    Double.parseDouble(transfer.getAmount().toString()));
         }
-        return userList;
+        return transferList;
     }
 
 }

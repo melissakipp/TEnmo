@@ -35,7 +35,7 @@ public class TransferController {
         return transferDao.processTransfer(transfer);
     }
 
-    @GetMapping("/alltransfers")
+    @GetMapping("/transfer/alltransfers")
     public Transfer[] getAllTransfers(Principal principal) {
         return transferDao.getAllTransfers(principal.getName());
     }

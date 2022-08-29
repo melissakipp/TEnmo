@@ -54,9 +54,6 @@ public class TransferService  {
         if (transfers == null) {
             System.out.println("There are no transfers for this customer.");
         }
-        for(int i = 0; i < transfers.length; i++) {
-
-        }
         return transfers;
     }
 

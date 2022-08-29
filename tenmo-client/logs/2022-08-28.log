@@ -1,3 +1,7 @@
 2022-08-28T10:32:38.333492 500 : [{"timestamp":"2022-08-28T17:32:38.312+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Transfer.getAccountTo()\" because \"transfer\" is null","path":"/account/transfer"}]
 2022-08-28T10:45:04.94722 500 : [{"timestamp":"2022-08-28T17:45:04.917+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Transfer.getAccountTo()\" because \"transfer\" is null","path":"/account/transfer"}]
 2022-08-28T10:46:29.250904 500 : [{"timestamp":"2022-08-28T17:46:29.233+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Transfer.getAccountTo()\" because \"transfer\" is null","path":"/account/transfer"}]
+2022-08-28T17:19:39.378205 400 : [{"timestamp":"2022-08-29T00:19:39.359+00:00","status":400,"error":"Bad Request","message":"Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: \"alltransfers\"","path":"/account/transfer/alltransfers"}]
+2022-08-28T17:38:36.931494 400 : [{"timestamp":"2022-08-29T00:34:48.457+00:00","status":400,"error":"Bad Request","message":"Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: \"alltransfers\"","path":"/account/transfer/alltransfers"}]
+2022-08-28T17:56:12.898929 401 : [no body]
+2022-08-28T17:58:41.045788 401 : [no body]
