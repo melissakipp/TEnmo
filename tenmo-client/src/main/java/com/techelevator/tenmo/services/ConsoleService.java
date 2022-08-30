@@ -118,11 +118,11 @@ public class ConsoleService {
 
         for (Transfer transfer : transfers) {
             String toOrFrom = "To:";
-            transferListFormatter.format("%-11d %-3s %-19s %2.2f %n",
+            transferListFormatter.format("%-11d %-3s %-19s %2s %n",
                     transfer.getTransferId(),
                     toOrFrom,
                     transfer.getRecipient(),
-                    Double.parseDouble(transfer.getAmount().toString()));
+                    transfer.getAmount().toString());
         }
         return transferList;
     }

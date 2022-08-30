@@ -109,8 +109,12 @@ public class JdbcTransferDao implements TransferDao {
         BigDecimal accountToBalance = accountDao.getAccountBalanceByAccountId(transfer.getAccountTo());
         BigDecimal accountFromBalance = accountDao.getAccountBalanceByAccountId(transfer.getAccountFrom());
         BigDecimal amountToTransfer = transfer.getAmount();
-        // TODO: Find out to compare two BigDecimals
-        if (accountFromBalance.compareTo(amountToTransfer) == 1 && amountToTransfer.compareTo(new BigDecimal(0)) == 1) {
+        // BigDecimal.compareTo() returns value based on comparison of two BigDecimals
+        // ex BD1.compareTo(BD2)
+        // 1 = BD1 > BD2
+        // 0 = BD1 = BD2
+        //-1 = BD1 < BD2
+        if (accountFromBalance.compareTo(amountToTransfer) != -1 && amountToTransfer.compareTo(new BigDecimal(0)) == 1) {
             jdbcTemplate.update(sqlSuccess, transfer.getAmount(), transfer.getAccountFrom(), transfer.getAmount(), transfer.getAccountTo());
             return "Your transfer #" + transfer.getTransferId() + " was successful!";
         }

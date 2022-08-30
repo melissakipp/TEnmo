@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.Formatter;
 
 public class TransferService  {
 
@@ -57,6 +58,34 @@ public class TransferService  {
         return transfers;
     }
 
+    public String getTransfer(AuthenticatedUser currentUser, int transferIdInput) {
+        String token = currentUser.getToken();
+        String transferDetail = "";
+        StringBuilder sb = new StringBuilder();
+        Formatter fm = new Formatter(sb);
+        try {
+            ResponseEntity<Transfer> response =
+                    restTemplate.exchange(apiUrl + "transfer/" + transferIdInput, HttpMethod.GET, makeAuthEntity(token), Transfer.class);
+            Transfer transfer = response.getBody();
+            sb.append("\n--------------------------------------------");
+            sb.append("\nTransfer Details");
+            sb.append("\n--------------------------------------------");
+            fm.format("%nId: %-5d %nFrom: %-15s %nTo: %-15s %nType: %-15s %nStatus: %-15s %nAmount: %-15s %n",
+                    transfer.getTransferId(),
+                    transfer.getSender(),
+                    transfer.getRecipient(),
+                    transfer.getTransferTypeDescription(),
+                    transfer.getTransferStatusDescription(),
+                    transfer.getAmount().toString());
+
+            transferDetail = String.valueOf(sb);
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+            System.out.println("There was an error. Please refer to the log files.");
+        };
+        return transferDetail;
+    }
+
     private HttpEntity<Void> makeAuthEntity(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
@@ -69,4 +98,6 @@ public class TransferService  {
         headers.setBearerAuth(token);
         return new HttpEntity<Transfer>(transfer, headers);
     }
+
+
 }
