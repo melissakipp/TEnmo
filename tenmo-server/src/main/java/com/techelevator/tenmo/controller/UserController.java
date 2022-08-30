@@ -19,6 +19,7 @@ public class UserController {
     }
 
     @GetMapping("users")
+    // using Principal object to maintain security and return username in methods
     public User[] getUsers(Principal principal) {
         int idToFilterOut = userDao.findIdByUsername(principal.getName());
         return userDao.findAllButCurrentUser(idToFilterOut);

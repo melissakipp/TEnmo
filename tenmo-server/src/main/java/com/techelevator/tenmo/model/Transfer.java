@@ -1,5 +1,9 @@
 package com.techelevator.tenmo.model;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class Transfer {
@@ -9,8 +13,12 @@ public class Transfer {
     private String transferTypeDescription;
     private Long transferStatusId;
     private String transferStatusDescription;
+    @NotNull
     private Long accountFrom;
+    @NotNull
     private Long accountTo;
+    @Positive
+    @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal amount;
     private String sender;
     private String recipient;

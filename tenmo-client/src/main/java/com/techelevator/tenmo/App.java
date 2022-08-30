@@ -100,8 +100,8 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-        System.out.println(consoleService.printTransferList(transferService.getAllTransfers(currentUser)));
-        int transferIdInput = consoleService.promptForInt("Please enter transfer ID to view details (0 to cancel): ");
+        System.out.println(consoleService.printTransferList(currentUser.getUser(), transferService.getAllTransfers(currentUser)));
+        int transferIdInput = consoleService.promptForInt("\nPlease enter transfer ID to view details (0 to cancel): ");
         if (transferIdInput != 0) {
             System.out.println(transferService.getTransfer(currentUser, transferIdInput));
         }

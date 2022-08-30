@@ -107,21 +107,26 @@ public class ConsoleService {
         return userList;
     }
 
-    public StringBuilder printTransferList(Transfer[] transfers) {
+    public StringBuilder printTransferList(User user, Transfer[] transfers) {
         StringBuilder transferList = new StringBuilder();
         Formatter transferListFormatter = new Formatter(transferList);
 
-        System.out.println("\n-------------------------------------------");
-        System.out.println("Transfers");
-        System.out.println("ID          From/To                 Amount");
-        System.out.println("-------------------------------------------");
+        transferList.append("\n-------------------------------------------");
+        transferList.append("\nTransfers");
+        transferList.append("\nID          From/To                 Amount");
+        transferList.append("\n-------------------------------------------");
 
         for (Transfer transfer : transfers) {
-            String toOrFrom = "To:";
-            transferListFormatter.format("%-11d %-3s %-19s %2s %n",
+            String toOrFrom = "";
+            // TODO: add comments
+            if (user.getUsername().equals(transfer.getRecipient())) {
+                toOrFrom = "From: " + transfer.getSender();
+            } else {
+                toOrFrom = "To: " + transfer.getRecipient();
+            }
+            transferListFormatter.format("%n%-11d %-23s %2s",
                     transfer.getTransferId(),
                     toOrFrom,
-                    transfer.getRecipient(),
                     transfer.getAmount().toString());
         }
         return transferList;

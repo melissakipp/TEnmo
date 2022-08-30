@@ -1,3 +1,4 @@
 2022-08-29T17:43:40.232479 401 : [no body]
 2022-08-29T17:49:14.532827 401 : [no body]
 2022-08-29T17:52:20.219983 500 : [{"timestamp":"2022-08-30T00:52:20.200+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Transfer.getAccountTo()\" because \"transfer\" is null","path":"/account/transfer"}]
+2022-08-29T19:39:47.066311 401 : [no body]

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.security.Principal;
 
 @Component
 public class JdbcAccountDao implements AccountDao {

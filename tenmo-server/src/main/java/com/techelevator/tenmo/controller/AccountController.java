@@ -20,19 +20,15 @@ public class AccountController {
     public AccountController(AccountDao dao) {
         this.dao = dao;
     }
-/* Previous implementation
-    @GetMapping("/{id}")
-    public BigDecimal getAccount(@Valid @PathVariable Long id, Principal principal) {
-        return dao.getBalance(id, principal);
-    }
-*/
 
     @GetMapping("")
+    // using Principal object to maintain security and return username in methods
     public AccountDTO getAccount(Principal principal) {
         return dao.getAccount(principal.getName());
     }
 
     @GetMapping("/balance")
+    // using Principal object to maintain security and return username in methods
     public BigDecimal getAccountBalance(Principal principal) {
         return dao.getAccountBalance(principal.getName());
     }

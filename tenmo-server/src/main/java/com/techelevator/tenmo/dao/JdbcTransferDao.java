@@ -56,6 +56,7 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public Transfer[] getAllTransfers(String username) {
+        // TODO: Explain use of principal and why this all
         User currentUser = userDao.findUserByUsername(username);
         Long accountId = accountDao.getAccountIdByUserId(currentUser.getId());
         List<Transfer> transfersList = new ArrayList<>();
