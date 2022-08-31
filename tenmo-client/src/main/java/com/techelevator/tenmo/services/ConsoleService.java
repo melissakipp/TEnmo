@@ -107,6 +107,17 @@ public class ConsoleService {
         return userList;
     }
 
+    /*
+
+
+
+
+
+
+
+
+
+*/
     public StringBuilder printTransferList(User user, Transfer[] transfers) {
         StringBuilder transferList = new StringBuilder();
         Formatter transferListFormatter = new Formatter(transferList);
@@ -118,7 +129,7 @@ public class ConsoleService {
 
         for (Transfer transfer : transfers) {
             String toOrFrom = "";
-            // TODO: add comments
+            // Logic to display whether the transaction was sent or received
             if (user.getUsername().equals(transfer.getRecipient())) {
                 toOrFrom = "From: " + transfer.getSender();
             } else {

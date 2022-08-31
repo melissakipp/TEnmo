@@ -11,5 +11,4 @@ public interface TransferDao {
     String processTransfer(Transfer transfer);
     Transfer[] getAllTransfers(String username);
 
-
 }

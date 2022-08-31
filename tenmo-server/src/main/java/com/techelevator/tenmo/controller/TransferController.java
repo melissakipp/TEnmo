@@ -29,7 +29,6 @@ public class TransferController {
         this.userDao = userDao;
     }
 
-
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.CREATED)
     public String createTransfer(@Valid @RequestBody Transfer transfer) {

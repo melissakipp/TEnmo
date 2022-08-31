@@ -1,0 +1,2 @@
+2022-08-30T15:19:32.839521 500 : [{"timestamp":"2022-08-30T22:19:32.810+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Transfer.getAccountTo()\" because \"transfer\" is null","path":"/account/transfer"}]
+2022-08-30T17:28:02.506954 500 : [{"timestamp":"2022-08-31T00:28:02.484+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"com.techelevator.tenmo.model.Transfer.getAccountTo()\" because \"transfer\" is null","path":"/account/transfer"}]

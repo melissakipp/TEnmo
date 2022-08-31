@@ -57,8 +57,12 @@ public class JdbcTransferDao implements TransferDao {
     @Override
     public Transfer[] getAllTransfers(String username) {
         // Because we are using the Principal object to retrieve the name we have 2 additional methods
+
+        // returns current user
         User currentUser = userDao.findUserByUsername(username);
+        // returns the account id of the current user
         Long accountId = accountDao.getAccountIdByUserId(currentUser.getId());
+
         List<Transfer> transfersList = new ArrayList<>();
         String sql =
                 "SELECT transfer_id, transfer.transfer_type_id, transfer_type_desc, transfer.transfer_status_id, " +
@@ -70,13 +74,14 @@ public class JdbcTransferDao implements TransferDao {
                 "ORDER BY transfer_id DESC;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId, accountId);
         while (results.next()) {
-                Transfer newTransfer = mapRowToTransfer(results);
-                newTransfer.setRecipient(userDao.findNameByAccountId(newTransfer.getAccountTo()));
-                newTransfer.setSender(userDao.findNameByAccountId(newTransfer.getAccountFrom()));
-                transfersList.add(newTransfer);
+            // creates a new transfer
+            Transfer newTransfer = mapRowToTransfer(results);
+            // sets the name of the recipient to the transfer for output later
+            newTransfer.setRecipient(userDao.findNameByAccountId(newTransfer.getAccountTo()));
+            // sets the name of the sender to the transfer for output later
+            newTransfer.setSender(userDao.findNameByAccountId(newTransfer.getAccountFrom()));
+            transfersList.add(newTransfer);
         }
-        List<Transfer> testList = transfersList;
-        Transfer[] testArray = transfersList.toArray(new Transfer[0]);
         return transfersList.toArray(new Transfer[0]);
     }
 

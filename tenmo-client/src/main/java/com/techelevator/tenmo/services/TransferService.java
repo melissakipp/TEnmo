@@ -25,6 +25,7 @@ public class TransferService  {
         String token = currentUser.getToken();
         Long accountFrom = currentUser.getUser().getId();
         Transfer transfer = new Transfer(accountFrom, accountTo, amount);
+        // setting theses here so that they could easily be updated for different transfer types
         transfer.setTransferTypeId(2L);
         transfer.setTransferStatusId(2L);
         String returnMessage = "";
@@ -36,7 +37,7 @@ public class TransferService  {
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
             System.out.println("User not found. Please refer to the log files.");
-            //throw new UserNotFoundException();
+
         }
         return returnMessage;
     }

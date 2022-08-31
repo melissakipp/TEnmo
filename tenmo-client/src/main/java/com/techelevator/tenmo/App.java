@@ -98,15 +98,51 @@ public class App {
         System.out.println("Your current account balance is: $" + accountService.getBalance(currentUser));
 	}
 
+    /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+     */
+
 	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
+		// Prints out all Transfers
         System.out.println(consoleService.printTransferList(currentUser.getUser(), transferService.getAllTransfers(currentUser)));
+        // Asks for user input
         int transferIdInput = consoleService.promptForInt("\nPlease enter transfer ID to view details (0 to cancel): ");
+        // If a Transfer ID was selected print out the selected Transfer
         if (transferIdInput != 0) {
             System.out.println(transferService.getTransfer(currentUser, transferIdInput));
         }
 	}
 
+    /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     */
 	private void viewPendingRequests() {
 		// TODO Auto-generated method stub
 		
@@ -116,7 +152,9 @@ public class App {
 		// TODO Auto-generated method stub
         List<User> users = userService.getAllUsersExceptCurrent(currentUser);
         System.out.println(consoleService.printUserList(users));
+        // method given in starter code
         Long recipientId =(long) consoleService.promptForInt("Enter ID of user you are sending to (0 to cancel): ");
+        // method given in starter code
         BigDecimal amountToTransfer = consoleService.promptForBigDecimal("Enter amount: ");
         System.out.println(transferService.transfer(currentUser, recipientId, amountToTransfer));
 	}
