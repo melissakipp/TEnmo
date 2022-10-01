@@ -16,6 +16,8 @@ public class TransferService  {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String apiUrl;
+    private final long SEND_MONEY_ID = 2L;
+    private final long SUCCESS_STATUS_ID = 2L;
 
     public TransferService(String apiUrl) {
         this.apiUrl = apiUrl + "account/";
@@ -26,8 +28,9 @@ public class TransferService  {
         Long accountFrom = currentUser.getUser().getId();
         Transfer transfer = new Transfer(accountFrom, accountTo, amount);
         // setting theses here so that they could easily be updated for different transfer types
-        transfer.setTransferTypeId(2L);
-        transfer.setTransferStatusId(2L);
+        // Todo: fix magic numbers ex. 2L
+        transfer.setTransferTypeId(SEND_MONEY_ID);
+        transfer.setTransferStatusId(SUCCESS_STATUS_ID);
         String returnMessage = "";
 
         try {

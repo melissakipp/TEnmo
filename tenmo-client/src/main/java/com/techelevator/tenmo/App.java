@@ -119,7 +119,7 @@ public class App {
         System.out.println(consoleService.printTransferList(currentUser.getUser(), transferService.getAllTransfers(currentUser)));
         // Asks for user input
         int transferIdInput = consoleService.promptForInt("\nPlease enter transfer ID to view details (0 to cancel): ");
-        // If a Transfer ID was selected print out the selected Transfer
+        // If a Transfer ID was selected print out the selected Transferprivate final long SEND_MONEY_ID = 2L;
         if (transferIdInput != 0) {
             System.out.println(transferService.getTransfer(currentUser, transferIdInput));
         }
