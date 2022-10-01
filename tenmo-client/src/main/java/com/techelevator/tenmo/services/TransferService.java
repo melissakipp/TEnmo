@@ -28,7 +28,6 @@ public class TransferService  {
         Long accountFrom = currentUser.getUser().getId();
         Transfer transfer = new Transfer(accountFrom, accountTo, amount);
         // setting theses here so that they could easily be updated for different transfer types
-        // Todo: fix magic numbers ex. 2L
         transfer.setTransferTypeId(SEND_MONEY_ID);
         transfer.setTransferStatusId(SUCCESS_STATUS_ID);
         String returnMessage = "";
